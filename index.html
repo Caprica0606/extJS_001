@@ -1,6 +1,6 @@
 <html>
  <head>
-    <title>Hello Ext</title>
+    <title>Practice Grid</title>
 
     <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
     <script type="text/javascript" src="extjs/ext-all-debug.js"></script>
@@ -9,8 +9,10 @@
 Ext.define('Riepilogo',{
     extend: 'Ext.data.Model',
     fields: [
-        {name: 'name', type: 'string'},
-        {name: 'salary', type: 'number'}
+        {name: 'first_name', type: 'string'},
+        {name: 'last_name', type: 'string'},
+        {name: 'annual_salary', type: 'number'},
+        {name: 'department', type: 'string'}
     ]
 });
 
@@ -28,11 +30,13 @@ store1.load();
 
 Ext.define("Ext.ux.grid.MonitorGrid", {
     extend: 'Ext.grid.Panel',
-    title: 'Monitor Panel',
+    title: 'Employees',
     store: 'riepilogo',
     columns: [
-        {header: 'Name', dataIndex: 'name'},
-        {header: 'Annual salary', dataIndex: 'salary'}
+        {header: 'First Name', dataIndex: 'first_name'},
+        {header: 'Last Name', dataIndex: 'last_name'},
+        {header: 'Annual salary', dataIndex: 'annual_salary'},
+        {header: 'Department', dataIndex: 'department'}
     ]
 });
 

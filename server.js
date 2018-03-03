@@ -40,7 +40,7 @@ function employeeInfo(pathname, request, response) {
   response.writeHead(200, {'Content-Type': 'application/json'});
   switch (request.method) {
     case "GET":
-      pool.query('select * from employees', function(err, res) {
+      pool.query('select * from employee_data', function(err, res) {
         response.write(JSON.stringify(res.rows));
         response.end();
       });
