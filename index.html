@@ -1,12 +1,11 @@
 <html>
  <head>
     <title>Practice Grid</title>
-
     <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
     <script type="text/javascript" src="extjs/ext-all-debug.js"></script>
-    <script type="text/javascript" src="app.js"></script>
     <script>
-Ext.define('Riepilogo',{
+//Model
+Ext.define('Mygrid',{
     extend: 'Ext.data.Model',
     fields: [
         {name: 'first_name', type: 'string'},
@@ -15,28 +14,60 @@ Ext.define('Riepilogo',{
         {name: 'department', type: 'string'}
     ]
 });
-
+// Data
 var store1 = Ext.create('Ext.data.Store',{
-    model: 'Riepilogo',
+    model: 'Mygrid',
     proxy: {
       type: 'ajax',
       url : 'employee-info'
     },
-    storeId: 'riepilogo'
+    storeId: 'Mygrid'
 });
 
 store1.load();
-//store1.loadRawData([{Cliente: 'Client1', SLA: 0.6}, {Cliente: 'Client2', SLA: 1}]);
 
+ var states  = Ext.create('Ext.data.Store', {
+     fields: ['Department'],
+     data : [
+         {'Department': 'HR'},
+         {'Department': 'IT'},
+         {'Department': 'SALES'},
+         {'Department': 'MARKETING'}
+     ]
+     });
+ Ext.create('Ext.form.ComboBox', {
+   fieldLabel: 'Select',
+   store: states,
+   queryMode: 'local',
+   displayField: 'Department',
+   valueField: 'Department',
+   renderTo: Ext.getBody()
+ });
 Ext.define("Ext.ux.grid.MonitorGrid", {
     extend: 'Ext.grid.Panel',
     title: 'Employees',
-    store: 'riepilogo',
+    selType: 'cellmodel',
+    store: 'Mygrid',
     columns: [
         {header: 'First Name', dataIndex: 'first_name'},
         {header: 'Last Name', dataIndex: 'last_name'},
         {header: 'Annual salary', dataIndex: 'annual_salary'},
-        {header: 'Department', dataIndex: 'department'}
+        {header: 'Department', dataIndex: 'department',
+             editor: new Ext.form.field.ComboBox({
+                    typeAhead: true,
+                    triggerAction: 'all',
+                    store: [
+                        ['IT','IT'],
+                        ['HR','HR'],
+                        ['SALES','SALES'],
+                        ['MARKETING','MARKETING']
+                    ]
+           })
+   } ],
+    plugins: [
+        Ext.create('Ext.grid.plugin.CellEditing', {
+            clicksToEdit: 1
+        })
     ]
 });
 
@@ -49,6 +80,7 @@ Ext.onReady(function(){
 });
     </script>
  </head>
- <body> 
+ <body>
  </body>
 </html>
+
