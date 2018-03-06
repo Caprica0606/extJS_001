@@ -23,28 +23,8 @@ var store1 = Ext.create('Ext.data.Store',{
     },
     storeId: 'Mygrid'
 });
+
 store1.load();
-
-//Departments model
-Ext.define('Departments_model',{
-    extend: 'Ext.data.Model',
-    fields: [
-        {name: 'department_id', type: 'number'},
-        {name: 'department', type: 'string'}
-    ]
-});
-//Departments store
-var department_store = Ext.create('Ext.data.Store',{
-    model: 'Departments_model',
-    proxy: {
-      type: 'ajax',
-      url : 'employee_department'
-    },
-    storeId: 'Departments_model'
-});
-department_store.load();
-
-
 
 // var states  = Ext.create('Ext.data.Store', {
   //   fields: ['Department'],
@@ -56,11 +36,11 @@ department_store.load();
    //  ]
    //`  });
 // Ext.create('Ext.form.ComboBox', {
- // fieldLabel: 'Select',
-   //store: department_store,
-   //queryMode: 'local',
-   //displayField: 'Department',
-   //valueField: 'Department',
+ //  fieldLabel: 'Select',
+  // store: states,
+  // queryMode: 'local',
+  // displayField: 'Department',
+  // valueField: 'Department',
   // renderTo: Ext.getBody()
 // });
 Ext.define("Ext.ux.grid.MonitorGrid", {
@@ -76,8 +56,12 @@ Ext.define("Ext.ux.grid.MonitorGrid", {
              editor: new Ext.form.field.ComboBox({
                     typeAhead: true,
                     triggerAction: 'all',
-                    store: department_store,
-                    displayField: 'department'
+                    store: [
+                        ['IT','IT'],
+                        ['HR','HR'],
+                        ['SALES','SALES'],
+                        ['MARKETING','MARKETING']
+                    ]
            })
    } ],
     plugins: [

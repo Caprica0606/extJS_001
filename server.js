@@ -36,6 +36,7 @@ function serveFile(pathname, request, response) {
   });
 }
 
+// employee_data table
 function employeeInfo(pathname, request, response) {
   response.writeHead(200, {'Content-Type': 'application/json'});
   switch (request.method) {
@@ -47,6 +48,19 @@ function employeeInfo(pathname, request, response) {
       break;
   }  
 }
+
+// employee_department table
+function employee_department(pathname, request, response) {
+  response.writeHead(200, {'Content-Type': 'application/json'});
+  switch (request.method) {
+    case "GET":
+      pool.query('select * from employee_department', function(err, res) {
+        response.write(JSON.stringify(res.rows));
+        response.end();
+      });
+      break;
+  }
+}
  
 http.createServer(function(request, response) {
   console.log("REQ: " + request.url);
@@ -56,7 +70,9 @@ http.createServer(function(request, response) {
     case "/employee-info":
       employeeInfo(pathname, request, response);
       break;
-    
+    case "/employee_department":
+      employee_department(pathname, request, response);
+      break; 
     // Nope -- it's not an API call, so just serve up
     // the file.
     default:
