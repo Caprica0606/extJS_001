@@ -7,7 +7,7 @@ var pool = new pg.Pool({
   user: 'michelle',
   host: 'localhost',
   database: 'employees',
-  password: ''
+  password: 'mypassword'
 });
 
 // Yes, this is not secure but hey, it's enough to get something
